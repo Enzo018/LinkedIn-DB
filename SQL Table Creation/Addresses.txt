@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS public.addresses
+(
+    address character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    zip_code character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT addresses_pkey PRIMARY KEY (address),
+    CONSTRAINT addresses_ref_zip_city_fk FOREIGN KEY (zip_code)
+        REFERENCES public.zip_city (zip_code) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_addresses_ref_zip_city_fk
+    ON public.addresses USING btree
+    (zip_code COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;

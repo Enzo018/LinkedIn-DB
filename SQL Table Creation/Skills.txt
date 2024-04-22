@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS public.skills
+(
+    skill_abr character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    skill_name character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT "Skills_pkey" PRIMARY KEY (skill_abr)
+)
+
+TABLESPACE pg_default;

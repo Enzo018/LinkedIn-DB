@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS public.city_state
+(
+    city character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    state character varying(30) COLLATE pg_catalog."default",
+    CONSTRAINT city_state_pkey PRIMARY KEY (city),
+    CONSTRAINT city_state_ref_state_country_fk FOREIGN KEY (state)
+        REFERENCES public.state_country (state) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_city_state_ref_state_country_fk
+    ON public.city_state USING btree
+    (state COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;

@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS public.salary_currency
+(
+    compensation_type character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    currency character varying(10) COLLATE pg_catalog."default",
+    CONSTRAINT salary_currency_pkey PRIMARY KEY (compensation_type)
+)
+
+TABLESPACE pg_default;

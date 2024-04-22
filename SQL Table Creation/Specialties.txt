@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS public.specialties
+(
+    specialty_id integer NOT NULL,
+    specialty character varying(2000) COLLATE pg_catalog."default",
+    CONSTRAINT specialties_pkey PRIMARY KEY (specialty_id)
+)
+
+TABLESPACE pg_default;

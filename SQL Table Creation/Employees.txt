@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS public.employees
+(
+    company_id bigint NOT NULL,
+    employee_count integer,
+    follower_count integer,
+    time_recorded bigint NOT NULL,
+    CONSTRAINT employee_count_pkey PRIMARY KEY (company_id, time_recorded),
+    CONSTRAINT employee_count_ref_companies_fk FOREIGN KEY (company_id)
+        REFERENCES public.companies (company_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_employee_count_ref_companies_fk
+    ON public.employees USING btree
+    (company_id ASC NULLS LAST)
+    TABLESPACE pg_default;

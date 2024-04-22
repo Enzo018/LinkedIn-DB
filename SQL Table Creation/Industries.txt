@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS public.industries
+(
+    industry_id integer NOT NULL,
+    industry_name character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT "Industries_pkey" PRIMARY KEY (industry_id)
+)
+
+TABLESPACE pg_default;

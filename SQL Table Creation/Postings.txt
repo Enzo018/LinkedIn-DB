@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS public.postings
+(
+    job_id bigint NOT NULL,
+    title character varying(300) COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    remote_allowed integer,
+    views integer,
+    formatted_experience_level character varying(100) COLLATE pg_catalog."default",
+    listed_time character varying(100) COLLATE pg_catalog."default",
+    sponsored integer,
+    work_type character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT "Postings_pkey" PRIMARY KEY (job_id)
+)
+
+TABLESPACE pg_default;

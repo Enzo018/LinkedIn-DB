@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS public.postings_companies
+(
+    job_id bigint NOT NULL,
+    company_id bigint NOT NULL,
+    CONSTRAINT postings_companies_pkey PRIMARY KEY (job_id, company_id),
+    CONSTRAINT postings_companies_ref_companies_fk FOREIGN KEY (company_id)
+        REFERENCES public.companies (company_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID,
+    CONSTRAINT postings_companies_ref_postings_fk FOREIGN KEY (job_id)
+        REFERENCES public.postings (job_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_postings_companies_ref_companies_fk
+    ON public.postings_companies USING btree
+    (company_id ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: fki_postings_companies_ref_postings_fk
+
+-- DROP INDEX IF EXISTS public.fki_postings_companies_ref_postings_fk;
+
+CREATE INDEX IF NOT EXISTS fki_postings_companies_ref_postings_fk
+    ON public.postings_companies USING btree
+    (job_id ASC NULLS LAST)
+    TABLESPACE pg_default;

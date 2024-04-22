@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS public.benefits
+(
+    benefit_id integer NOT NULL,
+    inferred integer,
+    type character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT benefits_pkey PRIMARY KEY (benefit_id)
+)
+
+TABLESPACE pg_default;

@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS public.postings_benefits
+(
+    job_id bigint NOT NULL,
+    benefit_id integer NOT NULL,
+    CONSTRAINT postings_benefits_pkey PRIMARY KEY (job_id, benefit_id),
+    CONSTRAINT postings_benefits_ref_benefits_fk FOREIGN KEY (benefit_id)
+        REFERENCES public.benefits (benefit_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID,
+    CONSTRAINT postings_benefits_ref_postings_fk FOREIGN KEY (job_id)
+        REFERENCES public.postings (job_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_postings_benefits_ref_benefits_fk
+    ON public.postings_benefits USING btree
+    (benefit_id ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: fki_postings_benefits_ref_postings_fk
+
+-- DROP INDEX IF EXISTS public.fki_postings_benefits_ref_postings_fk;
+
+CREATE INDEX IF NOT EXISTS fki_postings_benefits_ref_postings_fk
+    ON public.postings_benefits USING btree
+    (job_id ASC NULLS LAST)
+    TABLESPACE pg_default;

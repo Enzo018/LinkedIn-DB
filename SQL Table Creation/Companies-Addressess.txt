@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS public.companies_addresses
+(
+    company_id bigint NOT NULL,
+    address character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT companies_addresses_pkey PRIMARY KEY (company_id, address),
+    CONSTRAINT companies_addresses_ref_addresses_fk FOREIGN KEY (address)
+        REFERENCES public.addresses (address) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID,
+    CONSTRAINT companies_addresses_ref_companies_fk FOREIGN KEY (company_id)
+        REFERENCES public.companies (company_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_companies_addresses_ref_addresses_fk
+    ON public.companies_addresses USING btree
+    (address COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: fkicompanies_addresses_ref_companies_fk
+
+-- DROP INDEX IF EXISTS public.fkicompanies_addresses_ref_companies_fk;
+
+CREATE INDEX IF NOT EXISTS fkicompanies_addresses_ref_companies_fk
+    ON public.companies_addresses USING btree
+    (company_id ASC NULLS LAST)
+    TABLESPACE pg_default;

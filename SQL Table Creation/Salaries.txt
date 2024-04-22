@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS public.salaries
+(
+    salary_id integer NOT NULL,
+    max_salary double precision,
+    med_salary double precision,
+    min_salary double precision,
+    pay_period character varying(25) COLLATE pg_catalog."default",
+    compensation_type character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT salaries_pkey PRIMARY KEY (salary_id),
+    CONSTRAINT salaries_ref_currency_fk FOREIGN KEY (compensation_type)
+        REFERENCES public.salary_currency (compensation_type) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_salaries_ref_currency_fk
+    ON public.salaries USING btree
+    (compensation_type COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;

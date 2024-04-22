@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS public.companies_industries
+(
+    company_id bigint NOT NULL,
+    industry_id integer NOT NULL,
+    CONSTRAINT companies_industries_pkey PRIMARY KEY (company_id, industry_id),
+    CONSTRAINT companies_industries_ref_companies_fk FOREIGN KEY (company_id)
+        REFERENCES public.companies (company_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID,
+    CONSTRAINT companies_industries_ref_industries_fk FOREIGN KEY (industry_id)
+        REFERENCES public.industries (industry_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fkicompanies_industries_ref_companies_fk
+    ON public.companies_industries USING btree
+    (company_id ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: fkicompanies_industries_ref_industries_fk
+
+-- DROP INDEX IF EXISTS public.fkicompanies_industries_ref_industries_fk;
+
+CREATE INDEX IF NOT EXISTS fkicompanies_industries_ref_industries_fk
+    ON public.companies_industries USING btree
+    (industry_id ASC NULLS LAST)
+    TABLESPACE pg_default;

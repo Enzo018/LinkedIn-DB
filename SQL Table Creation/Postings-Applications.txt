@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS public.postings_applications
+(
+    job_id bigint NOT NULL,
+    application_url character varying(1000) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT postings_applications_pkey PRIMARY KEY (job_id, application_url),
+    CONSTRAINT postings_applications_ref_applications_fk FOREIGN KEY (application_url)
+        REFERENCES public.applications (application_url) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID,
+    CONSTRAINT postings_applications_ref_postings_fk FOREIGN KEY (job_id)
+        REFERENCES public.postings (job_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE INDEX IF NOT EXISTS fki_postings_applications_ref_applications_fk
+    ON public.postings_applications USING btree
+    (application_url COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: fki_postings_applications_ref_postings_fk
+
+-- DROP INDEX IF EXISTS public.fki_postings_applications_ref_postings_fk;
+
+CREATE INDEX IF NOT EXISTS fki_postings_applications_ref_postings_fk
+    ON public.postings_applications USING btree
+    (job_id ASC NULLS LAST)
+    TABLESPACE pg_default;
